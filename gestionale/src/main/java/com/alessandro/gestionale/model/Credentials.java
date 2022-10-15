@@ -19,8 +19,8 @@ public class Credentials {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Long id;
-    @Column(name="user")
-    private String user;
+    @Column(name="username")
+    private String username;
     @Column(name="email")
     private String email;
     @Column(name="password")
