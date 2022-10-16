@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 public class Credentials {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
     @Column(name="username")
