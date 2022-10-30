@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CredentialsRepository extends CrudRepository<Credentials, Integer> {
     @Query("select c from Credentials c where c.username = :username or c.email = :email or c.platform = :platform or c.password = :password")
     List<Credentials> findAllByParameters(String username, String email, String password, String platform);
+
+    Optional<Credentials> findById(Long id);
 }

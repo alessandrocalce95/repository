@@ -7,8 +7,7 @@ import com.alessandro.gestionale.repository.CredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CredenzialiService {
@@ -49,4 +48,34 @@ public class CredenzialiService {
     }
 
 
+    public Credentials editCredentials(Long id , CredentialsDto newCredential) {
+        try {
+            Optional<Credentials> crendetialToEdit = repository.findById(id);
+            if (crendetialToEdit.isPresent()) {
+                crendetialToEdit.get().setEmail(newCredential.getEmail());
+                crendetialToEdit.get().setPassword(newCredential.getPassword());
+                crendetialToEdit.get().setPlatform(newCredential.getPlatform());
+                crendetialToEdit.get().setUsername(newCredential.getUsername());
+                return repository.save(crendetialToEdit.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Credentials> deleteCredentials(List<Long> ids) {
+        List<Credentials> deletedEntities = new ArrayList<>();
+        try {
+            for (Long id : ids) {
+                Credentials credentialToDelete = repository.findById(id).isPresent() ? repository.findById(id).get() : null;
+                if (credentialToDelete != null) repository.delete(credentialToDelete);
+                deletedEntities.add(credentialToDelete);
+            }
+            return deletedEntities;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deletedEntities;
+    }
 }

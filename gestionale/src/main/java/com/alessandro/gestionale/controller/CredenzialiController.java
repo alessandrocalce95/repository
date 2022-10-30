@@ -24,10 +24,10 @@ public class CredenzialiController {
 
     @GetMapping("/specific-credential")
     public ResponseEntity<List<Credentials>> getCredentialsByParams(
-            @RequestParam(value = "username", defaultValue = "username") String username,
-            @RequestParam(value = "email",    defaultValue = "email")    String email,
-            @RequestParam(value = "password", defaultValue = "password") String password,
-            @RequestParam(value = "platform", defaultValue = "platform") String platform) {
+            @RequestParam(value = "username", defaultValue = "username", required = false) String username,
+            @RequestParam(value = "email",    defaultValue = "email", required = false)    String email,
+            @RequestParam(value = "password", defaultValue = "password", required = false) String password,
+            @RequestParam(value = "platform", defaultValue = "platform", required = false) String platform) {
         List<Credentials> response = credenzialiService.obtainAllByParam(username, email, password, platform);
         return ResponseEntity.ok(response);
     }
@@ -40,10 +40,19 @@ public class CredenzialiController {
     }
 
     @PatchMapping ("/edit-credentials")
-    public ResponseEntity<List<Credentials>> patchCredentials(
-            @RequestBody List<CredentialsDto> credentials) {
-        List<Credentials> response = credenzialiService.addCredentials(credentials);
+    public ResponseEntity<Credentials> patchCredentials(
+            @RequestParam(value = "id", defaultValue = "0") Long id,
+            @RequestBody CredentialsDto newCredential) {
+        Credentials response = credenzialiService.editCredentials(id, newCredential);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/delete-credentials")
+    public ResponseEntity<List<Credentials>> deleteCredentials(
+            @RequestBody List<Long> ids) {
+        List<Credentials> response = credenzialiService.deleteCredentials(ids);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
