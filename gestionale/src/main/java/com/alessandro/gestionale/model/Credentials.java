@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "credenziali")
+@Table(name = "credentials")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,15 +17,15 @@ import javax.persistence.*;
 public class Credentials {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private Long id;
-    @Column(name="username")
+    @Column(name="USERNAME")
     private String username;
-    @Column(name="email")
+    @Column(name="EMAIL")
     private String email;
-    @Column(name="password")
+    @Column(name="PASSWORD")
     private String password;
-    @Column(name="platform")
+    @Column(name="PLATFORM")
     private String platform;
 }
 
